@@ -80,6 +80,35 @@ const routes = [
     component: () => import('@/pages/Tasks.vue'),
   },
   {
+    alias: '/projects',
+    path: '/projects/view/:viewType?',
+    name: 'Projects',
+    component: () => import('@/pages/Projects.vue'),
+  },
+  {
+    path: '/projects/:projectId',
+    name: 'Project',
+    component: () => import('@/pages/Project.vue'),
+    props: true,
+  },
+  {
+    path: '/purchases',
+    name: 'Purchases',
+    component: () => import('@/pages/TransactionTracker.vue'),
+    props: { doctype: 'CRM Purchase', title: 'Purchases' },
+  },
+  {
+    path: '/credits',
+    name: 'Credits',
+    component: () => import('@/pages/TransactionTracker.vue'),
+    props: { doctype: 'CRM Credit Record', title: 'Credits' },
+  },
+  {
+    path: '/hr',
+    name: 'HR & Payroll',
+    component: () => import('@/pages/HR.vue'),
+  },
+  {
     alias: '/contacts',
     path: '/contacts/view/:viewType?',
     name: 'Contacts',
@@ -226,6 +255,7 @@ router.beforeEach(async (to, from, next) => {
       'Organizations',
       'Notes',
       'Tasks',
+      'Projects',
       'Call Logs',
       'Data Imports',
     ].includes(to.name) &&
@@ -245,6 +275,7 @@ router.beforeEach(async (to, from, next) => {
         Organizations: 'CRM Organization',
         Notes: 'FCRM Note',
         Tasks: 'CRM Task',
+        Projects: 'CRM Project',
         'Call Logs': 'CRM Call Log',
         'Data Imports': 'Data Import',
       }

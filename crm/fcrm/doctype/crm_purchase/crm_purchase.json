@@ -1,0 +1,43 @@
+{
+  "doctype": "DocType",
+  "name": "CRM Purchase",
+  "module": "FCRM",
+  "autoname": "format:PUR-{#####}",
+  "title_field": "title",
+  "default_view": "List",
+  "track_changes": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "title",
+    "supplier",
+    "purchase_date",
+    "category",
+    "amount",
+    "paid_amount",
+    "payment_status",
+    "due_date",
+    "reference_number",
+    "section_break_notes",
+    "notes"
+  ],
+  "fields": [
+    {"fieldname": "title", "fieldtype": "Data", "label": "Purchase", "reqd": 1, "in_list_view": 1, "in_standard_filter": 1},
+    {"fieldname": "supplier", "fieldtype": "Data", "label": "Supplier", "reqd": 1, "in_list_view": 1, "in_standard_filter": 1},
+    {"fieldname": "purchase_date", "fieldtype": "Date", "label": "Purchase Date", "default": "Today", "in_list_view": 1},
+    {"fieldname": "category", "fieldtype": "Select", "label": "Category", "options": "Goods\nServices\nExpense\nOther", "default": "Other", "in_standard_filter": 1},
+    {"fieldname": "amount", "fieldtype": "Currency", "label": "Amount", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "paid_amount", "fieldtype": "Currency", "label": "Paid Amount", "default": 0},
+    {"fieldname": "payment_status", "fieldtype": "Select", "label": "Payment Status", "options": "Unpaid\nPartially Paid\nPaid\nCancelled", "default": "Unpaid", "in_list_view": 1, "in_standard_filter": 1},
+    {"fieldname": "due_date", "fieldtype": "Date", "label": "Due Date", "in_list_view": 1},
+    {"fieldname": "reference_number", "fieldtype": "Data", "label": "Reference Number"},
+    {"fieldname": "section_break_notes", "fieldtype": "Section Break", "label": "Notes"},
+    {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "report": 1, "export": 1},
+    {"role": "Sales Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "report": 1, "export": 1},
+    {"role": "Sales User", "read": 1, "write": 1, "create": 1, "report": 1, "export": 1}
+  ],
+  "sort_field": "purchase_date",
+  "sort_order": "DESC"
+}

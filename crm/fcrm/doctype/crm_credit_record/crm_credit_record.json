@@ -1,0 +1,43 @@
+{
+  "doctype": "DocType",
+  "name": "CRM Credit Record",
+  "module": "FCRM",
+  "autoname": "format:CRD-{#####}",
+  "title_field": "title",
+  "default_view": "List",
+  "track_changes": 1,
+  "engine": "InnoDB",
+  "field_order": [
+    "title",
+    "party",
+    "direction",
+    "credit_date",
+    "amount",
+    "settled_amount",
+    "status",
+    "due_date",
+    "reference_number",
+    "section_break_notes",
+    "notes"
+  ],
+  "fields": [
+    {"fieldname": "title", "fieldtype": "Data", "label": "Credit", "reqd": 1, "in_list_view": 1, "in_standard_filter": 1},
+    {"fieldname": "party", "fieldtype": "Data", "label": "Person or Company", "reqd": 1, "in_list_view": 1, "in_standard_filter": 1},
+    {"fieldname": "direction", "fieldtype": "Select", "label": "Direction", "options": "Credit Given\nCredit Received", "default": "Credit Given", "reqd": 1, "in_list_view": 1, "in_standard_filter": 1},
+    {"fieldname": "credit_date", "fieldtype": "Date", "label": "Credit Date", "default": "Today", "in_list_view": 1},
+    {"fieldname": "amount", "fieldtype": "Currency", "label": "Amount", "reqd": 1, "in_list_view": 1},
+    {"fieldname": "settled_amount", "fieldtype": "Currency", "label": "Settled Amount", "default": 0},
+    {"fieldname": "status", "fieldtype": "Select", "label": "Status", "options": "Open\nPartially Settled\nSettled\nCancelled", "default": "Open", "in_list_view": 1, "in_standard_filter": 1},
+    {"fieldname": "due_date", "fieldtype": "Date", "label": "Due Date", "in_list_view": 1},
+    {"fieldname": "reference_number", "fieldtype": "Data", "label": "Reference Number"},
+    {"fieldname": "section_break_notes", "fieldtype": "Section Break", "label": "Notes"},
+    {"fieldname": "notes", "fieldtype": "Small Text", "label": "Notes"}
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "report": 1, "export": 1},
+    {"role": "Sales Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "report": 1, "export": 1},
+    {"role": "Sales User", "read": 1, "write": 1, "create": 1, "report": 1, "export": 1}
+  ],
+  "sort_field": "credit_date",
+  "sort_order": "DESC"
+}

@@ -192,6 +192,10 @@ import NoteIcon from '@/components/Icons/NoteIcon.vue'
 import OrganizationsIcon from '@/components/Icons/OrganizationsIcon.vue'
 import PhoneIcon from '@/components/Icons/PhoneIcon.vue'
 import TaskIcon from '@/components/Icons/TaskIcon.vue'
+import BriefcaseBusinessIcon from '~icons/lucide/briefcase-business'
+import ShoppingCartIcon from '~icons/lucide/shopping-cart'
+import CreditCardIcon from '~icons/lucide/credit-card'
+import UsersRoundIcon from '~icons/lucide/users-round'
 import CollapseSidebar from '@/components/Icons/CollapseSidebar.vue'
 import NotificationsIcon from '@/components/Icons/NotificationsIcon.vue'
 import HelpIcon from '@/components/Icons/HelpIcon.vue'
@@ -315,6 +319,14 @@ function getIcon(routeName, icon) {
       return NoteIcon
     case 'Call Logs':
       return PhoneIcon
+    case 'Projects':
+      return BriefcaseBusinessIcon
+    case 'Purchases':
+      return ShoppingCartIcon
+    case 'Credits':
+      return CreditCardIcon
+    case 'HR & Payroll':
+      return UsersRoundIcon
     default:
       return PinIcon
   }

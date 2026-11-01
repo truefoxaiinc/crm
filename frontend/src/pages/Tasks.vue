@@ -129,7 +129,9 @@
             :label="
               getRow(itemName, 'reference_doctype').label == 'CRM Deal'
                 ? __('Deal')
-                : __('Lead')
+                : getRow(itemName, 'reference_doctype').label == 'CRM Project'
+                  ? __('Project')
+                  : __('Lead')
             "
             :iconRight="ArrowUpRightIcon"
             @click.stop="
@@ -402,11 +404,18 @@ function actions(name) {
 
 function redirect(doctype, docname) {
   if (!docname) return
-  let name = doctype == 'CRM Deal' ? 'Deal' : 'Lead'
-  let params = { leadId: docname }
-  if (name == 'Deal') {
-    params = { dealId: docname }
-  }
+  let name =
+    doctype == 'CRM Deal'
+      ? 'Deal'
+      : doctype == 'CRM Project'
+        ? 'Project'
+        : 'Lead'
+  let params =
+    name == 'Deal'
+      ? { dealId: docname }
+      : name == 'Project'
+        ? { projectId: docname }
+        : { leadId: docname }
   router.push({ name: name, params: params })
 }
 

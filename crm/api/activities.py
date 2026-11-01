@@ -16,8 +16,79 @@ def get_activities(name: str):
 		return get_deal_activities(name)
 	elif frappe.db.exists("CRM Lead", name):
 		return get_lead_activities(name)
+	elif frappe.db.exists("CRM Project", name):
+		return get_project_activities(name)
 	else:
 		frappe.throw(_("Document not found"), frappe.DoesNotExistError)
+
+
+def get_project_activities(name: str):
+	"""Return project creation, field-change, and comment events in the shared activity response shape."""
+	if not frappe.has_permission("CRM Project", "read", name):
+		frappe.throw(_("Not permitted"), frappe.PermissionError)
+
+	get_docinfo("", "CRM Project", name)
+	docinfo = frappe.response["docinfo"]
+	project = frappe.get_doc("CRM Project", name)
+	project_fields = {
+		field.fieldname: field.label for field in frappe.get_meta("CRM Project").fields
+	}
+	activities = [
+		{
+			"activity_type": "creation",
+			"creation": project.creation,
+			"owner": project.owner,
+			"data": _("created this project"),
+			"is_lead": False,
+		}
+	]
+
+	for version in reversed(docinfo.versions):
+		data = json.loads(version.data or "{}")
+		for change in data.get("changed", []):
+			if len(change) < 3 or change[0] not in project_fields:
+				continue
+			fieldname, old_value, value = change[:3]
+			if not old_value and not value:
+				continue
+
+			activity_type = "changed"
+			activity_data = {
+				"field": fieldname,
+				"field_label": project_fields[fieldname] or fieldname,
+				"old_value": old_value,
+				"value": value,
+			}
+			if not old_value:
+				activity_type = "added"
+			elif not value:
+				activity_type = "removed"
+
+			activities.append(
+				{
+					"activity_type": activity_type,
+					"creation": version.creation,
+					"owner": version.owner,
+					"data": activity_data,
+					"is_lead": False,
+				}
+			)
+
+	for comment in docinfo.comments:
+		activities.append(
+			{
+				"name": comment.name,
+				"activity_type": "comment",
+				"creation": comment.creation,
+				"owner": comment.owner,
+				"content": comment.content,
+				"attachments": get_attachments("Comment", comment.name),
+				"is_lead": False,
+			}
+		)
+
+	activities.sort(key=lambda activity: activity["creation"])
+	return activities, [], [], [], []
 
 
 def get_deal_activities(name: str):

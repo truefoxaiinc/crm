@@ -9,7 +9,7 @@
           v-if="!editing"
           :label="__('Refresh')"
           :iconLeft="LucideRefreshCcw"
-          @click="dashboardItems.reload"
+          @click="refreshDashboard"
         />
         <Button
           v-if="!editing && isAdmin()"
@@ -124,6 +124,7 @@
         class="pt-1"
         :editing="editing"
       />
+      <ProjectsDashboard ref="projectsDashboard" />
     </div>
   </div>
   <AddChartModal
@@ -139,6 +140,7 @@ import LucideRefreshCcw from '~icons/lucide/refresh-ccw'
 import LucideUndo2 from '~icons/lucide/undo-2'
 import LucidePenLine from '~icons/lucide/pen-line'
 import DashboardGrid from '@/components/Dashboard/DashboardGrid.vue'
+import ProjectsDashboard from '@/components/Dashboard/ProjectsDashboard.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
 import ViewBreadcrumbs from '@/components/ViewBreadcrumbs.vue'
 import LayoutHeader from '@/components/LayoutHeader.vue'
@@ -170,6 +172,7 @@ const showDatePicker = ref(false)
 const datePickerRef = ref(null)
 const preset = ref('Last 30 Days')
 const showAddChartModal = ref(false)
+const projectsDashboard = ref<{ reload: () => void } | null>(null)
 
 const filters = reactive({
   period: getLastXDays(),
@@ -188,6 +191,11 @@ function updateFilter(key: string, value: unknown, callback?: () => void) {
   filters[key] = value
   callback?.()
   dashboardItems.reload()
+}
+
+function refreshDashboard() {
+  dashboardItems.reload()
+  projectsDashboard.value?.reload()
 }
 
 const options = computed(() => [

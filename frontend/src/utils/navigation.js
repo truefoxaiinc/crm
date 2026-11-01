@@ -6,6 +6,10 @@ import OrganizationsIcon from '@/components/Icons/OrganizationsIcon.vue'
 import PhoneIcon from '@/components/Icons/PhoneIcon.vue'
 import TaskIcon from '@/components/Icons/TaskIcon.vue'
 import LucideLayoutDashboard from '~icons/lucide/layout-dashboard'
+import LucideBriefcaseBusiness from '~icons/lucide/briefcase-business'
+import LucideShoppingCart from '~icons/lucide/shopping-cart'
+import LucideCreditCard from '~icons/lucide/credit-card'
+import LucideUsersRound from '~icons/lucide/users-round'
 import router from '@/router'
 
 export const navigationItems = [
@@ -21,6 +25,10 @@ export const navigationItems = [
   { label: 'Organizations', icon: OrganizationsIcon, route: 'Organizations' },
   { label: 'Notes', icon: NoteIcon, route: 'Notes' },
   { label: 'Tasks', icon: TaskIcon, route: 'Tasks' },
+  { label: 'Projects', icon: LucideBriefcaseBusiness, route: 'Projects' },
+  { label: 'Purchases', icon: LucideShoppingCart, route: 'Purchases' },
+  { label: 'Credits', icon: LucideCreditCard, route: 'Credits' },
+  { label: 'HR & Payroll', icon: LucideUsersRound, route: 'HR & Payroll' },
   { label: 'Call Logs', icon: PhoneIcon, route: 'Call Logs' },
 ]
 

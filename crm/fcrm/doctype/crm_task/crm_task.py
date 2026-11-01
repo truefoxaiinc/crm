@@ -22,6 +22,7 @@ class CRMTask(Document):
 		priority: DF.Literal["Low", "Medium", "High"]
 		reference_docname: DF.DynamicLink | None
 		reference_doctype: DF.Link | None
+		project: DF.Link | None
 		start_date: DF.Date | None
 		status: DF.Literal["Backlog", "Todo", "In Progress", "Done", "Canceled"]
 		title: DF.Data
@@ -87,6 +88,13 @@ class CRMTask(Document):
 				"width": "10rem",
 			},
 			{
+				"label": "Project",
+				"type": "Link",
+				"key": "project",
+				"options": "CRM Project",
+				"width": "12rem",
+			},
+			{
 				"label": "Last Modified",
 				"type": "Datetime",
 				"key": "modified",
@@ -104,6 +112,7 @@ class CRMTask(Document):
 			"priority",
 			"reference_doctype",
 			"reference_docname",
+			"project",
 			"modified",
 		]
 		return {"columns": columns, "rows": rows}

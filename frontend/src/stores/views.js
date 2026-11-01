@@ -53,6 +53,7 @@ export const viewsStore = defineStore('crm-views', (doctype) => {
     'Organizations',
     'Notes',
     'Tasks',
+    'Projects',
     'Call Logs',
   ]
 
